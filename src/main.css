@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+#output {
+  background-color: red;
+  width: 800px;
+  height: 100%;
+  float: left;
+}
+
+#app {
+  float: right;
+  width: calc(100% - 800px);
+  height: 100%;
+  background-color: yellow;
+}
+
+#wrap {
+  height: 100%;
+}
+
+#wrap:after {
+  content: "";
+  display: table;
+  clear: both;
+}
