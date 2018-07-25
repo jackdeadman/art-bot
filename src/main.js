@@ -10,7 +10,35 @@ var KeyCode = {
   '2': 50
 };
 
+function Input() {
+  this.canvas = document.getElementById('input');
+  this.canvas.height = window.innerHeight;
+  this.ctx = this.canvas.getContext('2d');
+}
+
+Input.prototype.drawCircle = function(color, size) {
+  this.ctx.beginPath();
+  this.ctx.fillStyle = color;
+  this.ctx.arc(this.canvas.width/2, this.canvas.height/2, size, 0, 2*Math.PI);
+  this.ctx.fill();
+  this.ctx.closePath();
+};
+
+Input.prototype.draw = function() {
+  this.drawCircle('#aaa', 375);
+  this.drawCircle('#bbb', 375-65);
+  this.drawCircle('#ccc', 375-(65*2));
+  this.drawCircle('#ddd', 375-(65*3));
+  this.drawCircle('#eee', 375-(65*4));
+  this.drawCircle('#fff', 375-(65*5));
+
+  this.ctx.beginPath();
+};
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
+  var input = new Input();
   var canvas = document.getElementById('output');
   canvas.height = window.innerHeight;
   var canvasHeight = canvas.height;
@@ -81,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   setInterval(function() {
     // clearCanvas();
+    input.draw();
     draw();
     update();
   }, 1000/60);
