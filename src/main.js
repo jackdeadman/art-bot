@@ -161,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.querySelector('.reset').addEventListener('click', function() {
-      console.log('clicked');
       reset();
     });
 
@@ -183,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function reset() {
     angleChange = 0;
     angle = 0;
+    moving = false;
     circlePos = { x: 400, y: canvasHeight/2 };
     clearCanvas();
   }
