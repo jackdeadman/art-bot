@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: #ccc;
 }
 
 html, body {
@@ -7,10 +8,9 @@ html, body {
 }
 
 #output {
+  margin-top: 40px;
   background-color: white;
-  width: 800px;
-  height: 100%;
-  float: left;
+  /* margin: auto; */
 }
 
 #app {
@@ -22,10 +22,127 @@ html, body {
 
 #wrap {
   height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.navigation {
+  height: 350px;
+  /* background-color: pink; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-#wrap:after {
-  content: "";
-  display: table;
-  clear: both;
+.page {
+  height: calc(100% - 350px);
+  width: 100%;
+  position: relative;
+  z-index: -1;
+  text-align: center;
+  background-color: #ccc;
+}
+
+.main {
+  position: relative;
+}
+
+/* .page .button-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.navigation button {
+  height: 100px;
+  width: 100px;
+  border: 1px solid #222;
+  border-radius: 50%;
+} */
+
+.top-bar, .bottom-bar {
+  display: flex;
+  align-items: center;
+}
+
+.top-bar {
+  background-color: green;
+}
+
+.top-bar button, .bottom-bar button {
+  height: 100px;
+  width: 100px;
+}
+
+.bottom-bar {
+  background-color: red;
+}
+
+.navigation .buttons {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  background-color: #fff;
+}
+
+.button-4 button {
+  height: 180px;
+  width: 180px;
+  border-radius: 50%;
+  font-size: 100px;
+  border: 1px solid #222;
+}
+
+.button-3 button {
+  height: 145px;
+  width: 145px;
+  border-radius: 50%;
+  font-size: 60px;
+  border: 1px solid #222;
+}
+
+.button-2 button {
+  height: 110px;
+  width: 110px;
+  border-radius: 50%;
+  font-size: 40px;
+  border: 1px solid #222;
+}
+
+.button-1 button {
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  font-size: 30px;
+  border: 1px solid #222;
+}
+
+.button-0 button {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  border: 1px solid #222;
+}
+
+[class^=button-] {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  /* z-index: 0; */
+  border: 5px dashed #aaa;
+}
+
+[class^=button-].active {
+  background-color: #506f50;
+}
+
+.reset {
+  width: 100px;
+  height: 100px;
+  float: right;
 }

@@ -1,3 +1,5 @@
+var TURN_CHANGE = Math.PI / 1000;
+
 var KeyCode = {
   ENTER: 13,
   SPACE: 32,
@@ -72,10 +74,24 @@ Input.prototype.getAngleChange = function(x, y) {
   }
 };
 
+function fitToContainer(canvas){
+  // Make it visually fill the positioned parent
+  canvas.style.width ='100%';
+  canvas.style.height='100%';
+  // ...then set the internal size to match
+  canvas.width  = canvas.offsetWidth;
+  // console.log(canvas.offsetHeight - 350)
+  canvas.height = canvas.offsetHeight - 350;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-  var input = new Input();
+  // var input = new Input();
   var canvas = document.getElementById('output');
-  canvas.height = window.innerHeight;
+
+  // fitToContainer(canvas);
+
+
+  // canvas.height = window.innerHeight;
   var canvasHeight = canvas.height;
   var context = canvas.getContext("2d");
   var angle = 0;
@@ -97,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return {x: x2, y: y2};
   }
 
-  context.rotate(10*Math.PI/180);
+  // context.rotate(10*Math.PI/180);
 
   function draw() {
     context.fillStyle = "#000000";
@@ -105,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
     context.arc(circlePos.x, circlePos.y, 2, 0, 2 * Math.PI);
     context.fill();
   }
-  var speed = 1;
+  var speed = 0.5;
   var angleChange = 0;
 
   function update() {
@@ -124,6 +140,31 @@ document.addEventListener('DOMContentLoaded', function() {
     //   console.log(angleChange);
     // });
 
+    var buttons = document.querySelectorAll('[class^=button-]');
+    buttons.forEach(function(button) {
+      button.addEventListener('mouseover', function() {
+        var amount = parseInt(this.dataset.amount);
+        angleChange = -(amount * TURN_CHANGE);
+        buttons.forEach(function(button) {
+          button.classList.remove('active');
+        });
+        this.classList.add('active');
+      });
+    });
+
+    document.querySelector('.top-bar').addEventListener('mouseover', function() {
+      moving = true;
+    });
+
+    document.querySelector('.bottom-bar').addEventListener('mouseover', function() {
+      moving = false;
+    });
+
+    document.querySelector('.reset').addEventListener('click', function() {
+      console.log('clicked');
+      reset();
+    });
+
     window.addEventListener('keydown', function(e) {
       if (e.keyCode === KeyCode.ENTER) {
         reset();
@@ -132,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         var amount = parseInt(e.keyCode) - 54;
         if ([-3, -2, -1, 0, 1, 2, 3].indexOf(amount) !== -1) {
-          angleChange = amount * Math.PI/200;
+          angleChange = -(amount * Math.PI/200);
         }
       }
 
@@ -151,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   setInterval(function() {
     // clearCanvas();
-    input.draw();
+    // input.draw();
     draw();
     update();
   }, 1000/60);
