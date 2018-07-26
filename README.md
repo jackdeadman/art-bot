@@ -1,6 +1,6 @@
 # art-bot
 
-##Usage
+## Usage
 
 In order to create a freeform feel to the artBot, the virtual pen moves at a constant speed. The curvature of the lines can be adjusted through keyboard input or on-screen gaze elements.
 
@@ -8,7 +8,7 @@ the curvature of the line cae adjusted while the virtual pen is moving or stoppe
 
 Starting and stopping the virtual pen will allow for finer grain control than constantly adjusting as the virtual pen moves.
 
-###Circle Control Lement
+### Circle Control Lement
 
 The incremental circles adjust the curvature of the line drawn by the virtual pen. With the centre circle '0' deawing a straight line. 1-4 increasing curvature to the right and -4 - -1 increase curvature to the left.
 
@@ -22,7 +22,7 @@ The currently active  direction is highlighted green.
 
 The drawing canvas can be cleared by clicking the 'reset' button. This is the only interface button that requires a mouse click.
 
-###Keyboard Input
+### Keyboard Input
 
 to start and stop the virtual pen press 'space'.
 
