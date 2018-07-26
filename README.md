@@ -4,9 +4,11 @@
 
 In order to create a freeform feel to the artBot, the virtual pen moves at a constant speed. The curvature of the lines can be adjusted through keyboard input or on-screen gaze elements.
 
-the curvature of the line cae adjusted while the virtual pen is moving or stopped.
+the curvature of the line can be adjusted while the virtual pen is moving or stopped.
 
 Starting and stopping the virtual pen will allow for finer grain control than constantly adjusting as the virtual pen moves.
+
+NOTE - The drawing canvas must be fully visible before starting the virtual pen. Zoom out on your browser until a grey border is visible on all edges of the white canvas.
 
 ### Circle Control Lement
 
