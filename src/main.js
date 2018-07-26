@@ -141,7 +141,11 @@ document.addEventListener('DOMContentLoaded', function() {
     buttons.forEach(function(button) {
       button.addEventListener('mouseover', function() {
         var amount = parseInt(this.dataset.amount);
-        angleChange = amount * Math.PI/200;
+        angleChange = -(amount * Math.PI/200);
+        buttons.forEach(function(button) {
+          button.classList.remove('active');
+        });
+        this.classList.add('active');
       });
     });
 
@@ -165,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         var amount = parseInt(e.keyCode) - 54;
         if ([-3, -2, -1, 0, 1, 2, 3].indexOf(amount) !== -1) {
-          angleChange = amount * Math.PI/200;
+          angleChange = -(amount * Math.PI/200);
         }
       }
 
