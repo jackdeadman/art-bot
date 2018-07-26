@@ -153,6 +153,10 @@ document.addEventListener('DOMContentLoaded', function() {
       moving = false;
     });
 
+    document.querySelector('button.reset').addEventListener('click', function() {
+      reset();
+    });
+
     window.addEventListener('keydown', function(e) {
       if (e.keyCode === KeyCode.ENTER) {
         reset();

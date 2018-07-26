@@ -36,9 +36,20 @@ html, body {
 }
 
 .page {
-  height: 200px;
+  height: calc(100% - 350px);
   width: 100%;
   background-color: pink;
+  position: relative;
+}
+
+.page button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100px;
+  width: 100px;
+  border: 1px solid #222;
+  border-radius: 50%;
 }
 
 .navigation .top-bar, .navigation .bottom-bar {
