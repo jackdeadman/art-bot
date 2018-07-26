@@ -10,32 +10,67 @@ var KeyCode = {
   '2': 50
 };
 
+function Circle(colour, x, y, r) {
+  this.x = x;
+  this.y = y;
+  this.colour = colour;
+  this.radius = r;
+}
+
+Circle.prototype.draw = function(ctx) {
+  ctx.beginPath();
+  ctx.fillStyle = this.colour;
+  ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
+  ctx.fill();
+  ctx.closePath();
+};
+
+Circle.prototype.inside = function(x, y) {
+  return Math.sqrt((this.x-x)*(this.x-x) + (this.y-y)*(this.y-y)) < this.radius;
+}
+
 function Input() {
   this.canvas = document.getElementById('input');
   this.canvas.height = window.innerHeight;
+  this.mousePos = {x: 0, y: 0};
   this.ctx = this.canvas.getContext('2d');
+
+  var centre = { x: this.canvas.width/2, y: this.canvas.height/2 };
+
+  this.circles = [
+    new Circle('#aaa', centre.x, centre.y, 375),
+    new Circle('#bbb', centre.x, centre.y, 375-65),
+    new Circle('#ccc', centre.x, centre.y, 375-(65*2)),
+    new Circle('#ddd', centre.x, centre.y, 375-(65*3)),
+    new Circle('#eee', centre.x, centre.y, 375-(65*4)),
+    new Circle('#fff', centre.x, centre.y, 375-(65*5))
+  ];
 }
 
-Input.prototype.drawCircle = function(color, size) {
-  this.ctx.beginPath();
-  this.ctx.fillStyle = color;
-  this.ctx.arc(this.canvas.width/2, this.canvas.height/2, size, 0, 2*Math.PI);
-  this.ctx.fill();
-  this.ctx.closePath();
-};
 
 Input.prototype.draw = function() {
-  this.drawCircle('#aaa', 375);
-  this.drawCircle('#bbb', 375-65);
-  this.drawCircle('#ccc', 375-(65*2));
-  this.drawCircle('#ddd', 375-(65*3));
-  this.drawCircle('#eee', 375-(65*4));
-  this.drawCircle('#fff', 375-(65*5));
-
-  this.ctx.beginPath();
+  var ctx = this.ctx;
+  this.circles.forEach(function(circle) {
+    circle.draw(ctx);
+  });
 };
 
+function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: evt.clientX - rect.left,
+      y: evt.clientY - rect.top
+    };
+}
 
+Input.prototype.getAngleChange = function(x, y) {
+  for (var i=this.circles.length-1; i >= 0; i--) {
+    var circle = this.circles[i];
+    if (circle.inside(x, y)) {
+      return i-3;
+    }
+  }
+};
 
 document.addEventListener('DOMContentLoaded', function() {
   var input = new Input();
@@ -82,6 +117,13 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function bindControls() {
+
+    // window.addEventListener('mousemove', function(e) {
+    //   var mousePos = getMousePos(canvas, e);
+    //   angleChange = input.getAngleChange(mousePos.x, mousePos.y);
+    //   console.log(angleChange);
+    // });
+
     window.addEventListener('keydown', function(e) {
       if (e.keyCode === KeyCode.ENTER) {
         reset();
