@@ -9,21 +9,21 @@
 </head>
 <body>
   <div id="wrap">
-    <div class="top-bar">
-      <button>Start</button>
+    <div class="bottom-bar">
+      <button>Stop</button>
     </div>
-    <div>
+    <div class="main">
+      <button class="reset">Reset</button>
       <div class="page">
-        <button class="reset">Reset</button>
-        <canvas id="output"></canvas>
+        <canvas id="output" height="500" width="800"></canvas>
       </div>
       <div class="navigation">
           <ul class="buttons">
-            <li class="button-4 active" data-amount="-4"><button>-4</button></li>
+            <li class="button-4" data-amount="-4"><button>-4</button></li>
             <li class="button-3" data-amount="-3"><button>-3</button></li>
             <li class="button-2" data-amount="-2"><button>-2</button></li>
             <li class="button-1" data-amount="-1"><button>1</button></li>
-            <li class="button-0" data-amount="0"><button>0</button></li>
+            <li class="button-0 active" data-amount="0"><button>0</button></li>
             <li class="button-1" data-amount="1"><button>1</button></li>
             <li class="button-2" data-amount="2"><button>2</button></li>
             <li class="button-3" data-amount="3"><button>3</button></li>
@@ -31,8 +31,8 @@
           </ul>
       </div>
     </div>
-    <div class="bottom-bar">
-      <button>Stop</button>
+    <div class="top-bar">
+      <button>Start</button>
     </div>
   </div>
   <script src="src/main.js"></script>

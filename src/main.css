@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: #ccc;
 }
 
 html, body {
@@ -7,7 +8,9 @@ html, body {
 }
 
 #output {
+  margin-top: 40px;
   background-color: white;
+  /* margin: auto; */
 }
 
 #app {
@@ -33,20 +36,28 @@ html, body {
 .page {
   height: calc(100% - 350px);
   width: 100%;
-  background-color: pink;
   position: relative;
   z-index: -1;
+  text-align: center;
+  background-color: #ccc;
 }
 
-.page button {
+.main {
+  position: relative;
+}
+
+/* .page .button-container {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.navigation button {
   height: 100px;
   width: 100px;
   border: 1px solid #222;
   border-radius: 50%;
-}
+} */
 
 .top-bar, .bottom-bar {
   display: flex;
@@ -74,6 +85,7 @@ html, body {
   justify-content: space-around;
   align-items: center;
   height: 100%;
+  background-color: #fff;
 }
 
 .button-4 button {
@@ -122,9 +134,15 @@ html, body {
   align-items: center;
   padding: 0 30px;
   /* z-index: 0; */
-  border: 5px dashed #ccc;
+  border: 5px dashed #aaa;
 }
 
 [class^=button-].active {
   background-color: #506f50;
+}
+
+.reset {
+  width: 100px;
+  height: 100px;
+  float: right;
 }

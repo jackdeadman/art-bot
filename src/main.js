@@ -1,3 +1,5 @@
+var TURN_CHANGE = Math.PI / 1000;
+
 var KeyCode = {
   ENTER: 13,
   SPACE: 32,
@@ -78,17 +80,18 @@ function fitToContainer(canvas){
   canvas.style.height='100%';
   // ...then set the internal size to match
   canvas.width  = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
+  // console.log(canvas.offsetHeight - 350)
+  canvas.height = canvas.offsetHeight - 350;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
   // var input = new Input();
   var canvas = document.getElementById('output');
 
-  fitToContainer(canvas);
+  // fitToContainer(canvas);
 
 
-  canvas.height = window.innerHeight;
+  // canvas.height = window.innerHeight;
   var canvasHeight = canvas.height;
   var context = canvas.getContext("2d");
   var angle = 0;
@@ -110,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return {x: x2, y: y2};
   }
 
-  context.rotate(10*Math.PI/180);
+  // context.rotate(10*Math.PI/180);
 
   function draw() {
     context.fillStyle = "#000000";
@@ -118,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
     context.arc(circlePos.x, circlePos.y, 2, 0, 2 * Math.PI);
     context.fill();
   }
-  var speed = 1;
+  var speed = 0.5;
   var angleChange = 0;
 
   function update() {
@@ -141,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
     buttons.forEach(function(button) {
       button.addEventListener('mouseover', function() {
         var amount = parseInt(this.dataset.amount);
-        angleChange = -(amount * Math.PI/200);
+        angleChange = -(amount * TURN_CHANGE);
         buttons.forEach(function(button) {
           button.classList.remove('active');
         });
@@ -157,7 +160,8 @@ document.addEventListener('DOMContentLoaded', function() {
       moving = false;
     });
 
-    document.querySelector('button.reset').addEventListener('click', function() {
+    document.querySelector('.reset').addEventListener('click', function() {
+      console.log('clicked');
       reset();
     });
 
