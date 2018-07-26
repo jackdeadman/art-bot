@@ -72,9 +72,22 @@ Input.prototype.getAngleChange = function(x, y) {
   }
 };
 
+function fitToContainer(canvas){
+  // Make it visually fill the positioned parent
+  canvas.style.width ='100%';
+  canvas.style.height='100%';
+  // ...then set the internal size to match
+  canvas.width  = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-  var input = new Input();
+  // var input = new Input();
   var canvas = document.getElementById('output');
+
+  fitToContainer(canvas);
+
+
   canvas.height = window.innerHeight;
   var canvasHeight = canvas.height;
   var context = canvas.getContext("2d");
@@ -124,6 +137,22 @@ document.addEventListener('DOMContentLoaded', function() {
     //   console.log(angleChange);
     // });
 
+    var buttons = document.querySelectorAll('[class^=button-]');
+    buttons.forEach(function(button) {
+      button.addEventListener('mouseover', function() {
+        var amount = parseInt(this.dataset.amount);
+        angleChange = amount * Math.PI/200;
+      });
+    });
+
+    document.querySelector('.top-bar').addEventListener('mouseover', function() {
+      moving = true;
+    });
+
+    document.querySelector('.bottom-bar').addEventListener('mouseover', function() {
+      moving = false;
+    });
+
     window.addEventListener('keydown', function(e) {
       if (e.keyCode === KeyCode.ENTER) {
         reset();
@@ -151,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   setInterval(function() {
     // clearCanvas();
-    input.draw();
+    // input.draw();
     draw();
     update();
   }, 1000/60);

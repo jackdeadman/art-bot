@@ -8,9 +8,6 @@ html, body {
 
 #output {
   background-color: white;
-  width: 800px;
-  height: 100%;
-  float: left;
 }
 
 #app {
@@ -38,9 +35,30 @@ html, body {
   justify-content: space-between;
 }
 
+.page {
+  height: 200px;
+  width: 100%;
+  background-color: pink;
+}
+
 .navigation .top-bar, .navigation .bottom-bar {
   height: 75px;
-  background-color: #ccc;
+  /* line-height: 75px; */
+  text-align: center;
+}
+
+.top-bar {
+  background-color: green;
+}
+
+.top-bar button, .bottom-bar button {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.bottom-bar {
+  background-color: red;
 }
 
 .navigation .buttons {
@@ -97,6 +115,7 @@ html, body {
   height: 100%;
   display: flex;
   align-items: center;
-  padding: 30px;
+  padding: 0 30px;
+  /* z-index: 0; */
   border: 5px dashed #ccc;
 }
