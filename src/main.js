@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var canvasHeight = canvas.height;
   var context = canvas.getContext("2d");
   var angle = 0;
-  var moving = false;
+  var moving = true;
   var penDown = true;
 
   var circlePos = { x: 400, y: canvasHeight/2 };
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
     context.arc(circlePos.x, circlePos.y, 2, 0, 2 * Math.PI);
     context.fill();
   }
-  var speed = 0.5;
+  var speed = 0;
   var angleChange = 0;
 
   function update() {
@@ -140,25 +140,38 @@ document.addEventListener('DOMContentLoaded', function() {
     //   console.log(angleChange);
     // });
 
-    var buttons = document.querySelectorAll('[class^=button-]');
-    buttons.forEach(function(button) {
+    var buttons1 = document.querySelectorAll('#direction [class^=button-]');
+    buttons1.forEach(function(button) {
       button.addEventListener('mouseover', function() {
         var amount = parseInt(this.dataset.amount);
         angleChange = -(amount * TURN_CHANGE);
-        buttons.forEach(function(button) {
+        buttons1.forEach(function(button) {
           button.classList.remove('active');
         });
         this.classList.add('active');
       });
     });
 
-    document.querySelector('.top-bar').addEventListener('mouseover', function() {
-      moving = true;
+    var buttons2 = document.querySelectorAll('#speed [class^=button-]');
+    buttons2.forEach(function(button) {
+      button.addEventListener('mouseover', function() {
+        console.log(speed)
+        speed = parseInt(this.dataset.amount) * 0.25;
+        console.log(speed)
+        buttons2.forEach(function(button) {
+          button.classList.remove('active');
+        });
+        this.classList.add('active');
+      });
     });
 
-    document.querySelector('.bottom-bar').addEventListener('mouseover', function() {
-      moving = false;
-    });
+    // document.querySelector('.top-bar').addEventListener('mouseover', function() {
+    //   moving = true;
+    // });
+    //
+    // document.querySelector('.bottom-bar').addEventListener('mouseover', function() {
+    //   moving = false;
+    // });
 
     document.querySelector('.reset').addEventListener('click', function() {
       reset();
@@ -182,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function reset() {
     angleChange = 0;
     angle = 0;
-    moving = false;
+    moving = true;
     circlePos = { x: 400, y: canvasHeight/2 };
     clearCanvas();
   }
