@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
     buttons2.forEach(function(button) {
       button.addEventListener('mouseover', function() {
         console.log(speed)
-        speed = parseInt(this.dataset.amount) * 0.25;
+        speed = parseInt(this.dataset.amount) / 16;
         console.log(speed)
         buttons2.forEach(function(button) {
           button.classList.remove('active');
