@@ -5,54 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Art Bot</title>
-  <link rel="stylesheet" href="src/main.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-  <div id="wrap">
 
-    <!-- <div class="bottom-bar">
-      <button>Stop</button>
-    </div> -->
-
-    <div class="main">
-
-      <div class="navigation" id="speed">
-          <ul class="buttons">
-            <li class="button-4" data-amount="-8"><button>-4</button></li>
-            <li class="button-3" data-amount="-4"><button>-3</button></li>
-            <li class="button-2" data-amount="-2"><button>-2</button></li>
-            <li class="button-1" data-amount="-1"><button>-1</button></li>
-            <li class="button-0 active" data-amount="0"><button>0</button></li>
-            <li class="button-1" data-amount="1"><button>1</button></li>
-            <li class="button-2" data-amount="2"><button>2</button></li>
-            <li class="button-3" data-amount="4"><button>3</button></li>
-            <li class="button-4" data-amount="8"><button>4</button></li>
-          </ul>
-      </div>
-
-
-      <button class="reset">Reset</button>
-      <div class="page">
-        <canvas id="output" height="500" width="800"></canvas>
-      </div>
-      <div class="navigation" id="direction">
-          <ul class="buttons">
-            <li class="button-4" data-amount="-4"><button>-4</button></li>
-            <li class="button-3" data-amount="-3"><button>-3</button></li>
-            <li class="button-2" data-amount="-2"><button>-2</button></li>
-            <li class="button-1" data-amount="-1"><button>-1</button></li>
-            <li class="button-0 active" data-amount="0"><button>0</button></li>
-            <li class="button-1" data-amount="1"><button>1</button></li>
-            <li class="button-2" data-amount="2"><button>2</button></li>
-            <li class="button-3" data-amount="3"><button>3</button></li>
-            <li class="button-4" data-amount="4"><button>4</button></li>
-          </ul>
-      </div>
-    </div>
-    <!-- <div class="top-bar">
-      <button>Start</button>
-    </div> -->
+  <div class="page">
+    <canvas id="display"></canvas>
   </div>
-  <script src="src/main.js"></script>
+
+  <section class="overlay active">
+
+  </section>
+
+
+  <script src="js/main.js"></script>
 </body>
 </html>
