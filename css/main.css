@@ -3,7 +3,7 @@
 }
 
 body {
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 html, body {
@@ -17,4 +17,154 @@ canvas#display {
   width: 100vh;
   height: 100vh;
   background-color: white;
+}
+
+.ui-items {
+  list-style: none;
+  display: flex;
+  /* height: 100%; */
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.ui-items--space-between {
+  justify-content: space-between;
+}
+
+.ui-items--horizontal {
+  flex-direction: row;
+}
+
+.ui-items--horizontal .ui-items__item {
+  margin: 0 10px;
+}
+
+.ui-items__item  {
+  height: 100px;
+  width: 100px;
+  background-color: #ccc;
+  border-radius: 100%;
+
+  line-height: 100px;
+  text-align: center;
+  margin: 20px auto;
+
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.overlay:not(.active) {
+  display: none;
+  visibility: hidden;
+}
+
+
+.panel {
+  position: absolute;
+  height: 100%;
+  width: 200px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 80px 0;
+}
+
+.panel--flat {
+  width: 100%;
+  /* top: 0; */
+  left: 0;
+  border-bottom: 2px solid #ccc;
+  height: 200px;
+  padding: 10px;
+}
+
+.panel--full {
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.panel--bottom {
+  border-top: 2px solid #ccc;
+  bottom: 0;
+}
+
+.panel.left {
+  left: 0;
+  border-right: 2px solid #ccc;
+}
+
+.panel.right {
+  right: 0;
+  border-left: 2px solid #ccc;
+}
+
+.panel h2 {
+  font-size: 1em;
+}
+
+.angle-display {
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  top: 50%;
+  background-color: black;
+}
+
+.menu-container {
+  position: absolute;
+  padding: 0 40px;
+  top: 0;
+  width: 100%;
+  margin: auto;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.menu {
+  margin: 200px auto;
+  background-color: #fff;
+  box-shadow: 1px 1px 10px #ccc;
+  padding: 5px;
+}
+
+.menu h2 {
+  text-align: center;
+}
+
+h3 {
+  font-size: 1em;
+  color: #555;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+
+/* TEMP */
+.menu-bottom {
+  position: absolute;
+  bottom: -45px;
+  line-height: 70px;
+  margin: 0 auto;
+  left: 50%;
+}
+
+.menu-bottom.nudge {
+  left: calc(50% + 100px);
 }
