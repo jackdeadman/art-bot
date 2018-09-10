@@ -44,10 +44,20 @@ function degrees2radians(degrees){
 function DrawingPanel(context) {
   this.context = context;
   this.points = [];
+	this.__drawing = true;
 }
 
+DrawingPanel.prototype.setDrawing = function(drawing) {
+	if ((this.__drawing !== drawing) && !drawing) {
+		this.points.push(null);
+	}
+	this.__drawing = drawing;
+};
+
 DrawingPanel.prototype.addPoint = function(point) {
-  this.points.push(point);
+	if (this.__drawing) {
+		this.points.push(point);
+	}
 };
 
 DrawingPanel.prototype.draw = function() {
@@ -61,10 +71,17 @@ DrawingPanel.prototype.draw = function() {
     var point = points[i];
 
     context.beginPath();
-    context.moveTo(previousPoint.x, previousPoint.y);
-    context.lineTo(point.x, point.y);
-    context.stroke();
-    context.closePath();
+
+		if (previousPoint !== null) {
+			context.moveTo(previousPoint.x, previousPoint.y);
+		}
+
+		if (point !== null) {
+			context.lineTo(point.x, point.y);
+		}
+
+		context.stroke();
+		context.closePath();
     previousPoint = point;
   }
 };
@@ -84,7 +101,9 @@ function ArtBot(position, context) {
 
 
 ArtBot.prototype.update = function() {
-  this.angle = this.angle + this.turningSpeed;
+	if (this.speed !== 0) {
+		this.angle = this.angle + this.turningSpeed;
+	}
   this.position = {
     x: this.position.x + this.speed * Math.cos(this.angle),
     y: this.position.y + this.speed * Math.sin(this.angle),
@@ -114,27 +133,65 @@ ArtBot.prototype.draw = function() {
 
   var objects = [ panel, robot ];
 
+	function removeClasses() {
+		document.querySelectorAll('.curve-setter').forEach(function(changer) {
+			changer.classList.remove('active');
+		});
+	};
+
   document.querySelectorAll('.angle-changer').forEach(function(changer) {
-    changer.addEventListener('click', function() {
+    changer.addEventListener('mouseover', function() {
       robot.angle += parseFloat(degrees2radians(changer.dataset.amount));
+			robot.turningSpeed = 0;
+			removeClasses();
     });
   });
 
   document.querySelectorAll('.angle-setter').forEach(function(changer) {
-    changer.addEventListener('click', function() {
+    changer.addEventListener('mouseover', function() {
       robot.angle = parseFloat(degrees2radians(changer.dataset.amount));
+			robot.turningSpeed = 0;
+			removeClasses();
+    });
+  });
+
+	document.querySelectorAll('.curve-setter').forEach(function(changer) {
+    changer.addEventListener('mouseover', function() {
+			removeClasses();
+			changer.classList.add('active');
+      robot.turningSpeed = (parseFloat(degrees2radians(changer.dataset.amount)) / 10);
     });
   });
 
   document.querySelectorAll('.menu-button').forEach(function(menuButton) {
-    menuButton.addEventListener('click', function() {
+    menuButton.addEventListener('mouseover', function() {
       menu.classList.remove('hidden');
     });
   });
 
+	var robotMoving = true;
+	document.querySelectorAll('.stop-button').forEach(function(button) {
+		button.addEventListener('mouseover', function() {
+			document.querySelectorAll('.stop-button').forEach(function(button) {
+				robotMoving = !robotMoving;
+				button.innerText = robotMoving ? 'stop' : 'start';
+			});
+		});
+	});
+
+	var robotDrawing = true;
+	document.querySelectorAll('.pen-button').forEach(function(button) {
+		button.addEventListener('mouseover', function() {
+			robotDrawing = !robotDrawing;
+			document.querySelectorAll('.pen-button').forEach(function(button) {
+				button.innerText = robotDrawing ? 'penup' : 'pendown';
+			});
+		});
+	});
+
   var overlays = [].slice.call(document.querySelectorAll('.overlay'));
   document.querySelectorAll('.menu-changer').forEach(function(menuChanger) {
-    menuChanger.addEventListener('click', function() {
+    menuChanger.addEventListener('mouseover', function() {
       menu.classList.add('hidden');
       var indexChanging = parseInt(menuChanger.dataset.index);
       overlays[indexChanging].classList.add('active');
@@ -150,8 +207,14 @@ ArtBot.prototype.draw = function() {
   var angleDisplays = document.querySelectorAll('.angle-display');
   var angleTexts = document.querySelectorAll('.angle-text');
 
+	var toggle = true;
+	var robotStartSpeed = 0.5;
+
   setInterval(function(){
     context.clearRect(0, 0, canvas.width, canvas.height);
+		robot.speed = robotMoving ? robotStartSpeed : 0;
+		panel.setDrawing(robotDrawing);
+
     robot.update();
     panel.addPoint(robot.position);
 

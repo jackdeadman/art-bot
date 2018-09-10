@@ -3,7 +3,7 @@
 }
 
 body {
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 html, body {
@@ -14,7 +14,7 @@ html, body {
 
 
 canvas#display {
-  width: 100vh;
+  width: 100%;
   height: 100vh;
   background-color: white;
 }
@@ -155,6 +155,11 @@ h3 {
   visibility: hidden;
 }
 
+.ui-items__item.active {
+  background-color: #222;
+  color: #fff
+}
+
 
 /* TEMP */
 .menu-bottom {
@@ -162,9 +167,19 @@ h3 {
   bottom: -45px;
   line-height: 70px;
   margin: 0 auto;
-  left: 50%;
+  text-align: center;
+  width: 100%;
+}
+
+.menu-bottom > * {
+  display: inline-block;
+  line-height: 50px;
+  position: relative;
+  top: 0px;
+  margin: 0 10px;
 }
 
 .menu-bottom.nudge {
-  left: calc(50% + 100px);
+  transform: translateX(300px);
+  /* left: calc(50% + 100px); */
 }
