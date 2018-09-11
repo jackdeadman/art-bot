@@ -139,17 +139,26 @@ ArtBot.prototype.draw = function() {
 		});
 	};
 
+	function pulse(node) {
+		node.classList.add('active');
+		setTimeout(function() {
+			node.classList.remove('active')
+		}, 500);
+	}
+
   document.querySelectorAll('.angle-changer').forEach(function(changer) {
     changer.addEventListener('mouseover', function() {
       robot.angle += parseFloat(degrees2radians(changer.dataset.amount));
 			robot.turningSpeed = 0;
 			removeClasses();
+			pulse(changer)
     });
   });
 
   document.querySelectorAll('.angle-setter').forEach(function(changer) {
     changer.addEventListener('mouseover', function() {
       robot.angle = parseFloat(degrees2radians(changer.dataset.amount));
+			pulse(changer)
 			robot.turningSpeed = 0;
 			removeClasses();
     });
@@ -172,6 +181,7 @@ ArtBot.prototype.draw = function() {
 	var robotMoving = true;
 	document.querySelectorAll('.stop-button').forEach(function(button) {
 		button.addEventListener('mouseover', function() {
+			pulse(this);
 			document.querySelectorAll('.stop-button').forEach(function(button) {
 				robotMoving = !robotMoving;
 				button.innerText = robotMoving ? 'stop' : 'start';
@@ -183,6 +193,7 @@ ArtBot.prototype.draw = function() {
 	document.querySelectorAll('.pen-button').forEach(function(button) {
 		button.addEventListener('mouseover', function() {
 			robotDrawing = !robotDrawing;
+			pulse(this);
 			document.querySelectorAll('.pen-button').forEach(function(button) {
 				button.innerText = robotDrawing ? 'penup' : 'pendown';
 			});
@@ -192,6 +203,7 @@ ArtBot.prototype.draw = function() {
   var overlays = [].slice.call(document.querySelectorAll('.overlay'));
   document.querySelectorAll('.menu-changer').forEach(function(menuChanger) {
     menuChanger.addEventListener('mouseover', function() {
+			pulse(this);
       menu.classList.add('hidden');
       var indexChanging = parseInt(menuChanger.dataset.index);
       overlays[indexChanging].classList.add('active');
