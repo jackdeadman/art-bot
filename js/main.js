@@ -60,8 +60,7 @@ DrawingPanel.prototype.addPoint = function(point) {
 	}
 };
 
-DrawingPanel.prototype.draw = function() {
-  var points = this.points;
+DrawingPanel.prototype.drawPoints = function(points, colour) {
   if (points.length === 0) return;
 
   var context = this.context;
@@ -80,10 +79,15 @@ DrawingPanel.prototype.draw = function() {
 			context.lineTo(point.x, point.y);
 		}
 
+		context.strokeStyle = colour || '#000000';
 		context.stroke();
 		context.closePath();
     previousPoint = point;
   }
+};
+
+DrawingPanel.prototype.draw = function() {
+	this.drawPoints(this.points);
 };
 
 DrawingPanel.prototype.update = noOp;
@@ -98,16 +102,38 @@ function ArtBot(position, context) {
   this.angle = Math.PI;
 };
 
+ArtBot.prototype.preUpdate = function(position, angle, speed) {
+	if (speed !== 0) {
+		angle = angle + this.turningSpeed;
+	}
+  return {
+		position: {
+			x: position.x + speed * Math.cos(angle),
+			y: position.y + speed * Math.sin(angle),
+		},
+		angle: angle
+  };
+};
+
+ArtBot.prototype.peek = function(distance) {
+	var positions = [];
+	var attrs = {
+		position: { x: this.position.x, y: this.position.y },
+		angle: this.angle
+	};
+
+	for (var i = 0; i < distance; i++) {
+		attrs = this.preUpdate(attrs.position, attrs.angle, 0.5);
+		positions.push(attrs.position);
+	}
+	return positions;
+};
 
 
 ArtBot.prototype.update = function() {
-	if (this.speed !== 0) {
-		this.angle = this.angle + this.turningSpeed;
-	}
-  this.position = {
-    x: this.position.x + this.speed * Math.cos(this.angle),
-    y: this.position.y + this.speed * Math.sin(this.angle),
-  };
+	var updated = this.preUpdate(this.position, this.angle, this.speed);
+	this.position = updated.position;
+	this.angle = updated.angle;
 };
 
 ArtBot.prototype.draw = function() {
@@ -231,6 +257,8 @@ ArtBot.prototype.draw = function() {
     panel.addPoint(robot.position);
 
     panel.draw();
+		panel.drawPoints(robot.peek(200), '#AAAAAA');
+
     robot.draw();
 
     angleDisplays.forEach(function(angleDisplay) {
