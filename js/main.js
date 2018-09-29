@@ -1,5 +1,24 @@
 var noOp = function() {};
 
+function debounce(func, delay) {
+  var inDebounce = false;
+	delay = delay || 500;
+  return function() {
+
+		if (!inDebounce) {
+			inDebounce = true;
+			var context = this;
+			var args = arguments;
+			func.apply(context, args);
+
+			setTimeout(function() {
+				inDebounce = false;
+			}, delay);
+		}
+
+  }
+}
+
 function drawArrowhead(context, angle, to, radius) {
 	var x_center = to.x;
 	var y_center = to.y;
@@ -246,24 +265,24 @@ RobotConnection.prototype.emit = function(data) {
 
 	var robotMoving = false;
 	document.querySelectorAll('.stop-button').forEach(function(button) {
-		button.addEventListener('mouseover', function() {
+		button.addEventListener('mouseover', debounce(function() {
 			robotMoving = !robotMoving;
 			pulse(this);
 			document.querySelectorAll('.stop-button').forEach(function(button) {
 				button.innerText = robotMoving ? 'stop' : 'start';
 			});
-		});
+		}));
 	});
 
 	var robotDrawing = false;
 	document.querySelectorAll('.pen-button').forEach(function(button) {
-		button.addEventListener('mouseover', function() {
+		button.addEventListener('mouseover', debounce(function() {
 			robotDrawing = !robotDrawing;
 			pulse(this);
 			document.querySelectorAll('.pen-button').forEach(function(button) {
 				button.innerText = robotDrawing ? 'penup' : 'pendown';
 			});
-		});
+		}));
 	});
 
   var overlays = [].slice.call(document.querySelectorAll('.overlay'));
