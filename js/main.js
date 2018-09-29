@@ -97,7 +97,6 @@ function ArtBot(position, context) {
   this.context = context;
 
   this.speed = 0.5;
-  this.turningSpeed = Math.PI / 100;
   this.turningSpeed = 0;
   this.angle = Math.PI;
 };
@@ -142,6 +141,40 @@ ArtBot.prototype.draw = function() {
   drawArrowhead(context, this.angle, this.position, 10);
 };
 
+
+function RobotConnection() {
+	this.ip = null;
+	this.ws = null;
+}
+
+RobotConnection.prototype.connect = function(ip, callbacks) {
+	var ws = new WebSocket('ws://'+ip+':8765');
+	var that = this;
+	ws.onopen = function() {
+		console.log('connected')
+		that.ws = ws;
+		callbacks.onSuccess();
+	}
+
+	ws.onerror = function() {
+		that.ws = null;
+		callbacks.onFailure();
+	}
+
+	ws.onclose = function() {
+		that.ws = null;
+		console.log('closed');
+	}
+};
+
+RobotConnection.prototype.emit = function(data) {
+	if (this.ws) {
+		this.ws.send(data);
+	}
+};
+
+
+
 (function() {
 
   var angleDisplay = document.getElementById('angle-display');
@@ -154,8 +187,15 @@ ArtBot.prototype.draw = function() {
   canvas.setAttribute('width', canvas.offsetWidth);
   canvas.setAttribute('height', canvas.offsetHeight);
 
+	function normaliseCoords(position) {
+		return {
+			x: position.x / canvas.offsetWidth,
+			y: position.y / canvas.offsetHeight
+		}
+	}
+
   var panel = new DrawingPanel(context);
-  var robot = new ArtBot({x: 500, y: 500}, context);
+  var robot = new ArtBot({x: 100, y: 100}, context);
 
   var objects = [ panel, robot ];
 
@@ -204,18 +244,18 @@ ArtBot.prototype.draw = function() {
     });
   });
 
-	var robotMoving = true;
+	var robotMoving = false;
 	document.querySelectorAll('.stop-button').forEach(function(button) {
 		button.addEventListener('mouseover', function() {
+			robotMoving = !robotMoving;
 			pulse(this);
 			document.querySelectorAll('.stop-button').forEach(function(button) {
-				robotMoving = !robotMoving;
 				button.innerText = robotMoving ? 'stop' : 'start';
 			});
 		});
 	});
 
-	var robotDrawing = true;
+	var robotDrawing = false;
 	document.querySelectorAll('.pen-button').forEach(function(button) {
 		button.addEventListener('mouseover', function() {
 			robotDrawing = !robotDrawing;
@@ -241,12 +281,28 @@ ArtBot.prototype.draw = function() {
     });
   });
 
+	var connectionContainer = document.querySelector('.connected');
+	var noConnectionContainer = document.querySelector('.no-connection');
+
+	document.querySelector('.no-connection a').addEventListener('click', function() {
+		var ip = prompt('Please type in the ip address of the robot.');
+		connection.connect(ip, {
+			onSuccess: function() {
+				connectionContainer.querySelector('.ip').innerText = ip;
+				noConnectionContainer.classList.add('hidden');
+				connectionContainer.classList.remove('hidden');
+				console.log(connectionContainer)
+			},
+			onFailure: function() { alert('Failed to connect.') }
+		});
+	});
+
 
   var angleDisplays = document.querySelectorAll('.angle-display');
   var angleTexts = document.querySelectorAll('.angle-text');
 
-	var toggle = true;
 	var robotStartSpeed = 0.5;
+	var connection = new RobotConnection();
 
   setInterval(function(){
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -268,7 +324,14 @@ ArtBot.prototype.draw = function() {
     angleTexts.forEach(function(angleText) {
       angleText.innerText = (Math.round(radians2degrees(robot.angle)) % 360);
     });
-  }, 1000/30);
+
+  }, 1000/60);
+
+	setInterval(function() {
+		var coords = normaliseCoords(robot.position);
+		console.log(coords);
+		connection.emit(JSON.stringify(coords));
+	}, 100);
 
 
 })();

@@ -8,218 +8,224 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-
-  <div class="page">
-    <canvas id="display"></canvas>
+  <div class="connection">
+    <span class="no-connection">No robot connected. <a href="#">Connect</a></span>
+    <span class="connected hidden">Connected to <span class="ip"></span></span>
   </div>
-
-  <div class="menu-container hidden" id='menu'>
-    <div class="menu">
-      <h2>Menu</h2>
-      <ul class="ui-items ui-items--horizontal">
-        <li>
-          <div class="ui-items__item menu-changer" data-index='0'></div>
-          <h3>Vertical Panels</h3>
-        </li>
-
-        <li>
-          <div class="ui-items__item menu-changer" data-index='1'></div>
-          <h3>Horizontal Panels 1</h3>
-        </li>
-
-        <li>
-          <div class="ui-items__item menu-changer" data-index='2'></div>
-          <h3>Horizontal Panels 2</h3>
-        </li>
-
-        <li>
-          <div class="ui-items__item  menu-changer" data-index='3'></div>
-          <h3>Hard Coded</h3>
-        </li>
-
-        <li>
-          <div class="ui-items__item  menu-changer" data-index='4'></div>
-          <h3>Curves</h3>
-        </li>
-    </div>
-  </div>
-
-  <section class="overlay">
-    <div class="panel left">
-      <ul class="ui-items">
-        <li>
-          <h2>Angle Display</h2>
-          <div class="ui-items__item">
-            <div class="angle-display"></div>
-          </div>
-          <div><span class="angle-text"></span> deg</div>
-        </li>
-
-        <li>
-          <div class="ui-items__item menu-button">menu</div>
-          <div class="ui-items__item stop-button">stop</div>
-          <div class="ui-items__item pen-button">penup</div>
-        </li>
-
-      </ul>
+  <div id="app">
+    <div class="page">
+      <canvas id="display"></canvas>
     </div>
 
-    <div class="panel right">
-      <ul class="ui-items">
-        <li>
-          <h2>Degree Control</h2>
-          <div class="ui-items__item angle-changer" data-amount='10'>+10</div>
-          <div class="ui-items__item angle-changer" data-amount='1'>+1</div>
-        </li>
-
-        <li>
-          <div class="ui-items__item angle-changer" data-amount='-10'>-10</div>
-          <div class="ui-items__item angle-changer" data-amount='-1'>-1</div>
-        </li>
-
-      </ul>
-    </div>
-
-
-  </section>
-
-  <section class="overlay">
-    <div class="panel panel--flat">
-      <ul class="ui-items ui-items--horizontal">
-        <li>
-          <h2>Angle Display</h2>
-          <div class="ui-items__item">
-            <div class="angle-display"></div>
-          </div>
-          <div><span class="angle-text"></span> deg</div>
-        </li>
-
-        <li>
-          <h2>Degree Control</h2>
-          <div class="ui-items ui-items--horizontal">
-            <div class="ui-items__item angle-changer" data-amount='-10'>-10</div>
-            <div class="ui-items__item angle-changer" data-amount='-1'>-1</div>
-            <div class="ui-items__item angle-changer" data-amount='10'>+10</div>
-            <div class="ui-items__item angle-changer" data-amount='1'>+1</div>
-          </div>
-        </li>
-        <li>
-        </li>
-      </ul>
-    </div>
-    <div class="menu-bottom">
-      <div class="menu-button ui-items__item">menu</div>
-      <div class="ui-items__item stop-button">stop</div>
-      <div class="ui-items__item pen-button">penup</div>
-    </div>
-  </section>
-
-
-  <section class="overlay">
-      <div class="panel panel--flat panel--bottom">
+    <div class="menu-container hidden" id='menu'>
+      <div class="menu">
+        <h2>Menu</h2>
         <ul class="ui-items ui-items--horizontal">
           <li>
-            <h2>Options</h2>
-            <div class="ui-items ui-items--horizontal">
-              <div class="ui-items__item menu-button">menu</div>
-              <div class="ui-items__item stop-button">stop</div>
-              <div class="ui-items__item pen-button">penup</div>
-            <div>
-          </li>
-          <li>
-            <h2>Angle Display</h2>
-            <div class="ui-items__item">
-              <div class="angle-display"></div>
-            </div>
-            <div><span class="angle-text"></span> deg</div>
+            <div class="ui-items__item menu-changer" data-index='0'></div>
+            <h3>Vertical Panels</h3>
           </li>
 
           <li>
-            <h2>Degree Control</h2>
-            <div class="ui-items ui-items--horizontal">
-              <div class="ui-items__item angle-changer" data-amount='-10'>-10</div>
-              <div class="ui-items__item angle-changer" data-amount='-1'>-1</div>
+            <div class="ui-items__item menu-changer" data-index='1'></div>
+            <h3>Horizontal Panels 1</h3>
+          </li>
+
+          <li>
+            <div class="ui-items__item menu-changer" data-index='2'></div>
+            <h3>Horizontal Panels 2</h3>
+          </li>
+
+          <li>
+            <div class="ui-items__item  menu-changer" data-index='3'></div>
+            <h3>Hard Coded</h3>
+          </li>
+
+          <li>
+            <div class="ui-items__item  menu-changer" data-index='4'></div>
+            <h3>Curves</h3>
+          </li>
+        </div>
+      </div>
+
+      <section class="overlay">
+        <div class="panel left">
+          <ul class="ui-items">
+            <li>
+              <h2>Angle Display</h2>
+              <div class="ui-items__item">
+                <div class="angle-display"></div>
+              </div>
+              <div><span class="angle-text"></span> deg</div>
+            </li>
+
+            <li>
+              <div class="ui-items__item menu-button">menu</div>
+              <div class="ui-items__item stop-button">start</div>
+              <div class="ui-items__item pen-button">pendown</div>
+            </li>
+
+          </ul>
+        </div>
+
+        <div class="panel right">
+          <ul class="ui-items">
+            <li>
+              <h2>Degree Control</h2>
               <div class="ui-items__item angle-changer" data-amount='10'>+10</div>
               <div class="ui-items__item angle-changer" data-amount='1'>+1</div>
+            </li>
+
+            <li>
+              <div class="ui-items__item angle-changer" data-amount='-10'>-10</div>
+              <div class="ui-items__item angle-changer" data-amount='-1'>-1</div>
+            </li>
+
+          </ul>
+        </div>
+
+
+      </section>
+
+      <section class="overlay">
+        <div class="panel panel--flat">
+          <ul class="ui-items ui-items--horizontal">
+            <li>
+              <h2>Angle Display</h2>
+              <div class="ui-items__item">
+                <div class="angle-display"></div>
+              </div>
+              <div><span class="angle-text"></span> deg</div>
+            </li>
+
+            <li>
+              <h2>Degree Control</h2>
+              <div class="ui-items ui-items--horizontal">
+                <div class="ui-items__item angle-changer" data-amount='-10'>-10</div>
+                <div class="ui-items__item angle-changer" data-amount='-1'>-1</div>
+                <div class="ui-items__item angle-changer" data-amount='10'>+10</div>
+                <div class="ui-items__item angle-changer" data-amount='1'>+1</div>
+              </div>
+            </li>
+            <li>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-bottom">
+          <div class="menu-button ui-items__item">menu</div>
+          <div class="ui-items__item stop-button">start</div>
+          <div class="ui-items__item pen-button">pendown</div>
+        </div>
+      </section>
+
+
+      <section class="overlay">
+        <div class="panel panel--flat panel--bottom">
+          <ul class="ui-items ui-items--horizontal">
+            <li>
+              <h2>Options</h2>
+              <div class="ui-items ui-items--horizontal">
+                <div class="ui-items__item menu-button">menu</div>
+                <div class="ui-items__item stop-button">start</div>
+                <div class="ui-items__item pen-button">pendown</div>
+                <div>
+                </li>
+                <li>
+                  <h2>Angle Display</h2>
+                  <div class="ui-items__item">
+                    <div class="angle-display"></div>
+                  </div>
+                  <div><span class="angle-text"></span> deg</div>
+                </li>
+
+                <li>
+                  <h2>Degree Control</h2>
+                  <div class="ui-items ui-items--horizontal">
+                    <div class="ui-items__item angle-changer" data-amount='-10'>-10</div>
+                    <div class="ui-items__item angle-changer" data-amount='-1'>-1</div>
+                    <div class="ui-items__item angle-changer" data-amount='10'>+10</div>
+                    <div class="ui-items__item angle-changer" data-amount='1'>+1</div>
+                  </div>
+                </li>
+                <li>
+                </li>
+              </ul>
             </div>
-          </li>
-          <li>
-          </li>
-        </ul>
-      </div>
-    </section>
+          </section>
 
-  <section class="overlay">
-    <div class="panel panel--full">
-      <ul class="ui-items">
-        <ul class="ui-items ui-items--horizontal ui-items--space-between">
-          <li><div class="ui-items__item angle-setter" data-amount="225">NW</div></li>
-          <li><div class="ui-items__item angle-setter" data-amount="270">N</div></li>
-          <li><div class="ui-items__item angle-setter" data-amount="315">NE</div></li>
-        </ul>
-      </ul>
+          <section class="overlay">
+            <div class="panel panel--full">
+              <ul class="ui-items">
+                <ul class="ui-items ui-items--horizontal ui-items--space-between">
+                  <li><div class="ui-items__item angle-setter" data-amount="225">NW</div></li>
+                  <li><div class="ui-items__item angle-setter" data-amount="270">N</div></li>
+                  <li><div class="ui-items__item angle-setter" data-amount="315">NE</div></li>
+                </ul>
+              </ul>
 
-      <ul class="ui-items">
-        <ul class="ui-items ui-items--horizontal ui-items--space-between">
-          <li><div class="ui-items__item angle-setter" data-amount="180">W</div></li>
-          <li><div class="ui-items__item angle-setter" data-amount="0">E</div></li>
-        </ul>
-      </ul>
+              <ul class="ui-items">
+                <ul class="ui-items ui-items--horizontal ui-items--space-between">
+                  <li><div class="ui-items__item angle-setter" data-amount="180">W</div></li>
+                  <li><div class="ui-items__item angle-setter" data-amount="0">E</div></li>
+                </ul>
+              </ul>
 
-      <ul class="ui-items">
-        <ul class="ui-items ui-items--horizontal ui-items--space-between">
-          <li><div class="ui-items__item angle-setter" data-amount="135">SW</div></li>
-          <li><div class="ui-items__item angle-setter" data-amount="90">S</div></li>
-          <li><div class="ui-items__item angle-setter" data-amount="45">SE</div></li>
-        </ul>
-      </ul>
-      <div class="menu-bottom nudge">
-        <div class="menu-button ui-items__item">menu</div>
-        <div class="ui-items__item stop-button">stop</div>
-        <div class="ui-items__item pen-button">penup</div>
-      </div>
-      <!-- <div class="menu-button ui-items__item menu-bottom nudge">menu</div> -->
-    </div>
-  </section>
+              <ul class="ui-items">
+                <ul class="ui-items ui-items--horizontal ui-items--space-between">
+                  <li><div class="ui-items__item angle-setter" data-amount="135">SW</div></li>
+                  <li><div class="ui-items__item angle-setter" data-amount="90">S</div></li>
+                  <li><div class="ui-items__item angle-setter" data-amount="45">SE</div></li>
+                </ul>
+              </ul>
+              <div class="menu-bottom nudge">
+                <div class="menu-button ui-items__item">menu</div>
+                <div class="ui-items__item stop-button">start</div>
+                <div class="ui-items__item pen-button">pendown</div>
+              </div>
+              <!-- <div class="menu-button ui-items__item menu-bottom nudge">menu</div> -->
+            </div>
+          </section>
 
 
-  <section class="overlay active">
-    <div class="panel panel--flat">
-      <ul class="ui-items ui-items--horizontal">
-        <li>
-          <h2>Angle Display</h2>
-          <div class="ui-items__item">
-            <div class="angle-display"></div>
-          </div>
-          <div><span class="angle-text"></span> deg</div>
-        </li>
+          <section class="overlay active">
+            <div class="panel panel--flat">
+              <ul class="ui-items ui-items--horizontal">
+                <li>
+                  <h2>Angle Display</h2>
+                  <div class="ui-items__item">
+                    <div class="angle-display"></div>
+                  </div>
+                  <div><span class="angle-text"></span> deg</div>
+                </li>
 
-        <li>
-          <h2>Curve Control</h2>
-          <div class="ui-items ui-items--horizontal">
-            <div class="ui-items__item curve-setter" data-amount='-5'>-5</div>
-            <div class="ui-items__item curve-setter" data-amount='-4'>-4</div>
-            <div class="ui-items__item curve-setter" data-amount='-3'>-3</div>
-            <div class="ui-items__item curve-setter" data-amount='-2'>-2</div>
-            <div class="ui-items__item curve-setter" data-amount='-1'>-1</div>
-            <div class="ui-items__item curve-setter" data-amount='0'>0</div>
-            <div class="ui-items__item curve-setter" data-amount='1'>1</div>
-            <div class="ui-items__item curve-setter" data-amount='2'>2</div>
-            <div class="ui-items__item curve-setter" data-amount='3'>3</div>
-            <div class="ui-items__item curve-setter" data-amount='4'>4</div>
-            <div class="ui-items__item curve-setter" data-amount='5'>5</div>
-          </div>
-        </li>
-        <li>
-        </li>
-      </ul>
-    </div>
-    <div class="menu-bottom">
-      <div class="menu-button ui-items__item">menu</div>
-      <div class="ui-items__item stop-button">stop</div>
-      <div class="ui-items__item pen-button">penup</div>
-    </div>
-  </section>
+                <li>
+                  <h2>Curve Control</h2>
+                  <div class="ui-items ui-items--horizontal">
+                    <div class="ui-items__item curve-setter" data-amount='-5'>-5</div>
+                    <div class="ui-items__item curve-setter" data-amount='-4'>-4</div>
+                    <div class="ui-items__item curve-setter" data-amount='-3'>-3</div>
+                    <div class="ui-items__item curve-setter" data-amount='-2'>-2</div>
+                    <div class="ui-items__item curve-setter" data-amount='-1'>-1</div>
+                    <div class="ui-items__item curve-setter" data-amount='0'>0</div>
+                    <div class="ui-items__item curve-setter" data-amount='1'>1</div>
+                    <div class="ui-items__item curve-setter" data-amount='2'>2</div>
+                    <div class="ui-items__item curve-setter" data-amount='3'>3</div>
+                    <div class="ui-items__item curve-setter" data-amount='4'>4</div>
+                    <div class="ui-items__item curve-setter" data-amount='5'>5</div>
+                  </div>
+                </li>
+                <li>
+                </li>
+              </ul>
+            </div>
+            <div class="menu-bottom">
+              <div class="menu-button ui-items__item">menu</div>
+              <div class="ui-items__item stop-button">start</div>
+              <div class="ui-items__item pen-button">pendown</div>
+            </div>
+          </section>
+
+  </div>
 
 
   <script src="js/main.js"></script>
