@@ -141,7 +141,7 @@ ArtBot.prototype.peek = function(distance) {
 	};
 
 	for (var i = 0; i < distance; i++) {
-		attrs = this.preUpdate(attrs.position, attrs.angle, 0.5);
+		attrs = this.preUpdate(attrs.position, attrs.angle, 0.05);
 		positions.push(attrs.position);
 	}
 	return positions;
@@ -182,6 +182,7 @@ RobotConnection.prototype.connect = function(ip, callbacks) {
 
 	ws.onclose = function() {
 		that.ws = null;
+    callbacks.onClose();
 		console.log('closed');
 	}
 };
@@ -310,8 +311,12 @@ RobotConnection.prototype.emit = function(data) {
 				connectionContainer.querySelector('.ip').innerText = ip;
 				noConnectionContainer.classList.add('hidden');
 				connectionContainer.classList.remove('hidden');
-				console.log(connectionContainer)
 			},
+      onClose: function() {
+        alert('Connection closed');
+        noConnectionContainer.classList.remove('hidden');
+				connectionContainer.classList.add('hidden');
+      },
 			onFailure: function() { alert('Failed to connect.') }
 		});
 	});
@@ -320,7 +325,7 @@ RobotConnection.prototype.emit = function(data) {
   var angleDisplays = document.querySelectorAll('.angle-display');
   var angleTexts = document.querySelectorAll('.angle-text');
 
-	var robotStartSpeed = 0.5;
+	var robotStartSpeed = 0.05;
 	var connection = new RobotConnection();
 
   setInterval(function(){
@@ -332,7 +337,7 @@ RobotConnection.prototype.emit = function(data) {
     panel.addPoint(robot.position);
 
     panel.draw();
-		panel.drawPoints(robot.peek(200), '#AAAAAA');
+		panel.drawPoints(robot.peek(500), '#AAAAAA');
 
     robot.draw();
 
@@ -348,7 +353,8 @@ RobotConnection.prototype.emit = function(data) {
 
 	setInterval(function() {
 		var coords = normaliseCoords(robot.position);
-		console.log(coords);
+		// console.log(coords);
+    console.log(coords)
 		connection.emit(JSON.stringify(coords));
 	}, 100);
 
